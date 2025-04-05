@@ -1,0 +1,97 @@
+.projects-for-sale {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+  }
+  
+  .projects-for-sale::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.5), transparent);
+    animation: borderGlow 3s infinite;
+  }
+  
+  .projects-for-sale-title {
+    font-size: 2.5rem;
+    color: #0f0;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+    font-family: 'Courier New', monospace;
+  }
+  
+  .projects-for-sale-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(255, 0, 76), transparent);
+  }
+  
+  .projects-for-sale-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .projects-for-sale-text {
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: rgba(0, 255, 0, 0.8);
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s forwards;
+  }
+  
+  @keyframes borderGlow {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .projects-for-sale {
+      min-height: calc(100vh - 70px);
+      padding: 1.5rem;
+      border: none;
+      border-radius: 0;
+    }
+    
+    .projects-for-sale-title {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .projects-for-sale-text {
+      font-size: 1.2rem;
+      line-height: 1.8rem;
+    }
+  }
