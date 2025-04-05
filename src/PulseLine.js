@@ -11,6 +11,12 @@ const PulseLine = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [gridOpacity, setGridOpacity] = useState(0.03);
 
+  // Добавляем ссылки на соцсети
+  const socialLinks = {
+    telegram: 'https://t.me/lenswinnes',
+    github: 'https://github.com/66n1ghtuper',
+  };
+
   const menuItems = React.useMemo(() => [
     'Главная',
     'Мои проекты',
@@ -35,6 +41,11 @@ const PulseLine = () => {
   const handleMenuItemClick = (index) => {
     setActiveButton(index);
     setIsMobileMenuOpen(false);
+  };
+
+  // Функция для открытия соцсети
+  const openSocialLink = (platform) => {
+    window.open(socialLinks[platform], '_blank');
   };
 
   const renderContent = () => {
@@ -76,8 +87,21 @@ const PulseLine = () => {
       {isMobileMenuOpen && (
         <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
           <div className="mobile-icons">
-            <img src={require('./q1.png')} alt="Иконка 1" className="icon" />
-            <img src={require('./q2.png')} alt="Иконка 2" className="icon" />
+            {/* Добавляем обработчики клика для иконок */}
+            <img 
+              src={require('./q1.png')} 
+              alt="Telegram" 
+              className="icon" 
+              onClick={() => openSocialLink('telegram')}
+              title="Написать в Telegram"
+            />
+            <img 
+              src={require('./q2.png')} 
+              alt="GitHub" 
+              className="icon" 
+              onClick={() => openSocialLink('github')}
+              title="Мой GitHub"
+            />
           </div>
           <MenuSidebar 
             menuItems={menuItems} 
