@@ -3,11 +3,13 @@ import './Header.css';
 import Icon1 from './q1.png'; 
 import Icon2 from './q2.png'; 
 import BurgerIcon from './56.png';
+import { useTranslation } from 'react-i18next';
 
 const Header = ({ toggleMobileMenu, isMobileMenuOpen }) => {
   const [logoText, setLogoText] = useState('');
   const fullLogo = '66nightuper';
   const [showUnderscore, setShowUnderscore] = useState(true);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     let currentIndex = 0;
@@ -26,9 +28,13 @@ const Header = ({ toggleMobileMenu, isMobileMenuOpen }) => {
     return () => clearInterval(typingInterval);
   }, []);
 
-
   const openSocial = (url) => {
     window.open(url, '_blank', 'noopener noreferrer');
+  };
+
+  const changeLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'ru' : 'en';
+    i18n.changeLanguage(newLang);
   };
 
   return (
@@ -38,30 +44,49 @@ const Header = ({ toggleMobileMenu, isMobileMenuOpen }) => {
         {showUnderscore && <span className="logo-underscore">_</span>}
       </div>
       
-      <div className="desktop-icons">
-
-        <img 
-          src={Icon1} 
-          alt="Telegram" 
-          className="icon" 
-          onClick={() => openSocial('https://t.me/lenswinnes')}
-        />
+      <div className="header-right-container">
+        <div className="desktop-icons">
+          <button 
+            className="language-switcher desktop"
+            onClick={changeLanguage}
+            title={i18n.language === 'en' ? 'Switch to Russian' : 'Switch to English'}
+          >
+            {i18n.language.toUpperCase()}
+          </button>
+          
+          <img 
+            src={Icon1} 
+            alt="Telegram" 
+            className="icon" 
+            onClick={() => openSocial('https://t.me/lenswinnes')}
+          />
+          
+          <img 
+            src={Icon2} 
+            alt="GitHub" 
+            className="icon" 
+            onClick={() => openSocial('https://github.com/66n1ghtuper')}
+          />
+        </div>
         
-        <img 
-          src={Icon2} 
-          alt="GitHub" 
-          className="icon" 
-          onClick={() => openSocial('https://github.com/66n1ghtuper')}
-        />
+        <div className="mobile-controls">
+          <button 
+            className="language-switcher mobile"
+            onClick={changeLanguage}
+            title={i18n.language === 'en' ? 'Switch to Russian' : 'Switch to English'}
+          >
+            {i18n.language.toUpperCase()}
+          </button>
+          
+          <button className="burger-menu" onClick={toggleMobileMenu}>
+            <img 
+              src={BurgerIcon} 
+              alt="Menu" 
+              className={`burger-icon ${isMobileMenuOpen ? 'open' : ''}`} 
+            />
+          </button>
+        </div>
       </div>
-      
-      <button className="burger-menu" onClick={toggleMobileMenu}>
-        <img 
-          src={BurgerIcon} 
-          alt="Меню" 
-          className={`burger-icon ${isMobileMenuOpen ? 'open' : ''}`} 
-        />
-      </button>
     </header>
   );
 };

@@ -1,5 +1,6 @@
 /* Header.css */
 @import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Audiowide&family=Capriola&family=Caveat:wght@400..700&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Fugaz+One&family=Grechen+Fuemen&family=Iceland&family=Indie+Flower&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=M+PLUS+Rounded+1c&family=Merienda:wght@300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oleo+Script:wght@400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Orbitron:wght@400..900&family=Outfit:wght@100..900&family=Pixelify+Sans:wght@400..700&family=Play:wght@400;700&family=Press+Start+2P&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rowdies:wght@300;400;700&family=Rubik+Wet+Paint&family=Tektur:wght@400..900&display=swap');
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -17,14 +18,15 @@
   margin: 0;
 }
 
-
-
+.header-right-container {
+  display: flex;
+  align-items: center;
+}
 
 @keyframes cursor-blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
-
 
 @keyframes icon-pulse {
   0%, 100% { opacity: 0.8; }
@@ -44,7 +46,10 @@
 
 .desktop-icons {
   display: flex;
+  align-items: center;
   gap: 20px;
+  position: relative;
+  right: 0;
 }
 
 .icon {
@@ -138,6 +143,7 @@
     padding: 20px 15px;
   }
 }
+
 .logo-container {
   display: flex;
   align-items: center;
@@ -159,4 +165,53 @@
   color: #0f0;
   font-weight: bold;
   margin-left: -2px;
+}
+
+.language-switcher {
+  background: none;
+  border: none;
+  color: #0f0;
+  cursor: pointer;
+  font-family: "Audiowide", sans-serif;
+  font-size: 16px;
+  padding: 5px 10px;
+  margin: 0 10px;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  animation: icon-pulse 3s infinite ease-in-out;
+}
+
+.language-switcher:hover {
+  background: rgba(0, 255, 0, 0.1);
+  border-color: #0f0;
+  animation: none;
+}
+
+.desktop-icons .language-switcher.desktop {
+  display: inline-block;
+}
+
+.mobile-controls .language-switcher.mobile {
+  display: none;
+}
+
+.mobile-controls {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .desktop-icons .language-switcher.desktop {
+    display: none;
+  }
+  
+  .mobile-controls .language-switcher.mobile {
+    display: inline-block;
+    margin-right: 15px;
+  }
+  
+  .burger-menu {
+    margin-left: 0;
+  }
 }

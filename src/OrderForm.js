@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './OrderForm.css';
+import { useTranslation } from 'react-i18next';
 
 const OrderForm = () => {
+  const { t, i18n } = useTranslation();
   const [messages, setMessages] = useState([
-    { text: 'Привет! Давай создадим твой идеальный сайт.', sender: 'bot', typing: true }
+    { text: t('order_form.greeting'), sender: 'bot', typing: true }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [currentStep, setCurrentStep] = useState('greeting');
@@ -27,14 +29,14 @@ const OrderForm = () => {
         setTimeout(() => {
           setCurrentStep('name');
           setMessages(prev => [...prev, 
-            { text: 'Как я могу к вам обращаться?', sender: 'bot', typing: true }
+            { text: t('order_form.ask_name'), sender: 'bot', typing: true }
           ]);
         }, 1000);
       }
     }, 1500);
     
     return () => clearTimeout(timer);
-  }, [messages, currentStep]);
+  }, [messages, currentStep, t]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,22 +49,26 @@ const OrderForm = () => {
       setFormData({ ...formData, name: inputValue });
       setCurrentStep('telegram');
       newMessages.push(
-        { text: `Приятно познакомиться, ${inputValue}!`, sender: 'bot', typing: true },
-        { text: 'Какой ваш Telegram username? (без @)', sender: 'bot', typing: true }
+        { text: t('order_form.greet_user', { name: inputValue }), sender: 'bot', typing: true },
+        { text: t('order_form.ask_telegram'), sender: 'bot', typing: true }
       );
     } 
     else if (currentStep === 'telegram') {
       setFormData({ ...formData, telegram: inputValue });
       setCurrentStep('description');
       newMessages.push(
-        { text: 'Дайте краткое описание:', sender: 'bot', typing: true }
+        { text: t('order_form.ask_description'), sender: 'bot', typing: true }
       );
     }
     else if (currentStep === 'description') {
       setFormData({ ...formData, description: inputValue });
       newMessages.push(
-        { text: 'Подтвердите данные:', sender: 'bot', typing: true },
-        { text: `Имя: ${formData.name}\nTelegram: @${formData.telegram}\nОписание: ${inputValue}`, sender: 'bot', typing: true }
+        { text: t('order_form.confirm_data'), sender: 'bot', typing: true },
+        { 
+          text: `${t('order_form.name')}: ${formData.name}\n${t('order_form.telegram')}: @${formData.telegram}\n${t('order_form.description')}: ${inputValue}`, 
+          sender: 'bot', 
+          typing: true 
+        }
       );
       setShowConfirmation(true);
     }
@@ -76,16 +82,16 @@ const OrderForm = () => {
     
     if (confirmed) {
       newMessages.push(
-        { text: 'Yes', sender: 'user' },
-        { text: 'Отлично! Заявка отправлена.', sender: 'bot', typing: true },
-        { text: 'Я свяжусь с вами в Telegram в ближайшее время.', sender: 'bot', typing: true }
+        { text: t('order_form.confirm_yes'), sender: 'user' },
+        { text: t('order_form.success_message'), sender: 'bot', typing: true },
+        { text: t('order_form.telegram_contact'), sender: 'bot', typing: true }
       );
       sendToTelegram();
       setCurrentStep('complete');
     } else {
       newMessages.push(
-        { text: 'No', sender: 'user' },
-        { text: 'Хорошо, начнем заново. Как вас зовут?', sender: 'bot', typing: true }
+        { text: t('order_form.confirm_no'), sender: 'user' },
+        { text: t('order_form.restart'), sender: 'bot', typing: true }
       );
       setCurrentStep('name');
       setFormData({ name: '', telegram: '', description: '', projectType: 'landing' });
@@ -101,10 +107,10 @@ const OrderForm = () => {
       const botToken = '8059841339:AAFW6m-7Ldpw_5F8-T3PDk6J_nutyNvFaaE';
       const chatId = '6992362772';
       
-      const message = `📌 Новая заявка на сайт!\n\n` +
-        `👤 Имя: ${formData.name}\n` +
-        `📱 Telegram: @${formData.telegram}\n` +
-        `📝 Описание:\n${formData.description}`;
+      const message = `${t('order_form.new_application')}\n\n` +
+        `👤 ${t('order_form.name')}: ${formData.name}\n` +
+        `📱 ${t('order_form.telegram')}: @${formData.telegram}\n` +
+        `📝 ${t('order_form.description')}:\n${formData.description}`;
 
       await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: 'POST',
@@ -118,7 +124,7 @@ const OrderForm = () => {
         })
       });
     } catch (error) {
-      console.error('Ошибка отправки:', error);
+      console.error(t('error_sending'), error);
     } finally {
       setIsSending(false);
     }
@@ -126,7 +132,7 @@ const OrderForm = () => {
   
   const startOrder = () => {
     setShowTerminal(true);
-    setMessages([{ text: 'Привет! Давай создадим твой идеальный сайт.', sender: 'bot', typing: true }]);
+    setMessages([{ text: t('order_form.greeting'), sender: 'bot', typing: true }]);
     setCurrentStep('greeting');
   };
   
@@ -134,10 +140,10 @@ const OrderForm = () => {
     return (
       <div className="order-init-container">
         <div className="order-init-content">
-          <h2>Хочешь заказать сайт?</h2>
-          <p>Давай сделаем это в интерактивном режиме!</p>
+          <h2>{t('order_form.welcome_title')}</h2>
+          <p>{t('order_form.interactive_prompt')}</p>
           <button onClick={startOrder} className="start-order-btn">
-            Начать заказ
+            {t('order_form.start_order')}
           </button>
         </div>
       </div>
@@ -177,14 +183,14 @@ const OrderForm = () => {
                 onClick={() => handleConfirmation(true)} 
                 className="confirm-btn yes"
               >
-                Yes
+                {t('order_form.confirm_yes')}
               </button>
               <span className="confirmation-slash">/</span>
               <button 
                 onClick={() => handleConfirmation(false)} 
                 className="confirm-btn no"
               >
-                No
+                {t('order_form.confirm_no')}
               </button>
             </div>
           )}

@@ -1,13 +1,14 @@
 import React from 'react';
 import './Header.css';
+import { useTranslation } from 'react-i18next';
 
 const MenuSidebar = ({ menuItems, activeButton, setActiveButton, isMobile }) => {
+  const { t } = useTranslation();
 
   const displayedItems = menuItems.slice(0, 4);
   
-
   while (displayedItems.length < 4) {
-    displayedItems.push('Скоро');
+    displayedItems.push(t('coming_soon'));
   }
 
   return (
@@ -20,7 +21,7 @@ const MenuSidebar = ({ menuItems, activeButton, setActiveButton, isMobile }) => 
           disabled={index >= menuItems.length} 
         >
           {activeButton === index && <span className="selector"></span>}
-          {item}
+          {t(item)} 
         </button>
       ))}
     </div>

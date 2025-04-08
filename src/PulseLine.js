@@ -5,24 +5,25 @@ import Header from './Header';
 import OrderForm from './OrderForm';
 import Projects from './Projects';
 import ProjectsForSale from './ProjectsForSale';
+import { useTranslation } from 'react-i18next';
 
 const PulseLine = () => {
+  const { t } = useTranslation();
   const [activeButton, setActiveButton] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [gridOpacity, setGridOpacity] = useState(0.03);
 
-  // Добавляем ссылки на соцсети
   const socialLinks = {
     telegram: 'https://t.me/lenswinnes',
     github: 'https://github.com/66n1ghtuper',
   };
 
   const menuItems = React.useMemo(() => [
-    'Главная',
-    'Мои проекты',
-    'Заказать сайт',
-    'Проекты на продажу'
-  ], []);
+    t('home'),
+    t('my_projects'),
+    t('order_website'),
+    t('projects_for_sale')
+  ], [t]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,7 +44,6 @@ const PulseLine = () => {
     setIsMobileMenuOpen(false);
   };
 
-  // Функция для открытия соцсети
   const openSocialLink = (platform) => {
     window.open(socialLinks[platform], '_blank');
   };
@@ -53,18 +53,16 @@ const PulseLine = () => {
       case 0: 
         return (
           <div className="welcome-text">
-            <h1 className="title">Добро пожаловать на мой сайт-портфолио!</h1>
+            <h1 className="title">{t('welcome_title')}</h1>
             <div className="text-container">
               <p className="animated-text">
-                <span className="highlight">Я фронтенд разработчик</span>, создающий интерактивные и функциональные веб-сайты. 
-                Если вы хотите заказать сайт или проект, я буду рад сотрудничеству и сделаю в срок!
+                <span className="highlight">{t('frontend_developer')}</span>, {t('creating_interactive_websites')}
               </p>
               <p className="animated-text delay-1">
-                Для постоянного сотрудничества или оффера свяжитесь со мной — нажмите на кнопку самолетика 
-                в правом верхнем углу, чтобы перейти в Telegram.
+                {t('for_collaboration_contact')}
               </p>
               <p className="animated-text delay-2">
-                Я открыт для новых идей и совместных проектов.<br></br> <span className="blink">Спасибо за посещение моего сайта!</span>
+                {t('open_for_new_ideas')}<br /><span className="blink">{t('thank_you_for_visiting')}</span>
               </p>
             </div>
           </div>
@@ -87,20 +85,19 @@ const PulseLine = () => {
       {isMobileMenuOpen && (
         <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
           <div className="mobile-icons">
-            {/* Добавляем обработчики клика для иконок */}
             <img 
               src={require('./q1.png')} 
               alt="Telegram" 
               className="icon" 
               onClick={() => openSocialLink('telegram')}
-              title="Написать в Telegram"
+              title={t('write_to_telegram')}
             />
             <img 
               src={require('./q2.png')} 
               alt="GitHub" 
               className="icon" 
               onClick={() => openSocialLink('github')}
-              title="Мой GitHub"
+              title={t('my_github')}
             />
           </div>
           <MenuSidebar 
@@ -129,3 +126,4 @@ const PulseLine = () => {
 };
 
 export default PulseLine;
+

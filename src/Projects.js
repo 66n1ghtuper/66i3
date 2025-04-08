@@ -5,54 +5,57 @@ import CorporateSiteImg from './008.jpg';
 import TaskTrackerImg from './007.jpg';
 import ForImg from './006.jpg';
 import FiImg from './005.jpg';
+import { useTranslation } from 'react-i18next';
 
 const Projects = () => {
+  const { t } = useTranslation();
+
   const projects = [
     {
       id: 1,
-      title: 'Первая версия моего портфолио',
+      title: t('projects.first_version_title'),
       image: ElectronicsStoreImg,
-      description: 'Демонстрация базовых навыков веб-разработки и дизайна на начальном этапе обучения.',
+      description: t('projects.first_version_description'),
       link: '-',
-      tags: ['React.js','CSS3','Three.js']
+      tags: ['React.js', 'CSS3', 'Three.js']
     },
     {
       id: 2,
-      title: 'Лендинг для студии автозвука',
+      title: t('projects.landing_title'),
       image: CorporateSiteImg,
-      description: 'Этот проект стал важным этапом в моей карьере, доказавшим возможность создания качественных коммерческих решений.',
+      description: t('projects.landing_description'),
       link: '-',
-      tags: ['HTML5', 'CSS3' ]
+      tags: ['HTML5', 'CSS3']
     },
     {
       id: 3,
-      title: 'Сервис для оказания услуг',
+      title: t('projects.service_title'),
       image: TaskTrackerImg,
-      description: 'Проект стал социально значимым, помогая мигрантам избежать мошенничества и быстро адаптироваться в новой стране.',
+      description: t('projects.service_description'),
       link: '-',
       tags: ['React.js', 'Node.js', 'React-i18next']
     },
     {
       id: 4,
-      title: 'Сайт для аренды скутеров',
+      title: t('projects.scooter_rental_title'),
       image: ForImg,
-      description: 'Проект стал визитной карточкой компании, увеличив узнаваемость бренда на рынке микромобильности.',
+      description: t('projects.scooter_rental_description'),
       link: '-',
       tags: ['React.js', 'Node.js', 'React-i18next']
     },
     {
       id: 5,
-      title: 'Демонстрация профессионального роста',
+      title: t('projects.professional_growth_title'),
       image: FiImg,
-      description: 'Этот проект отражает мой профессиональный рост — от базового владения версткой до комплексного подхода в разработке',
+      description: t('projects.professional_growth_description'),
       link: '-',
-      tags: ['React.js', 'Node.js']
+      tags: ['React.js', 'Node.js','React-i18next']
     }
   ];
 
   return (
     <div className="projects-container">
-      <h1 className="projects-title">Мои проекты</h1>
+      <h1 className="projects-title">{t('projects.title')}</h1>
       
       <div className="projects-grid">
         {projects.map(project => (
@@ -70,7 +73,7 @@ const Projects = () => {
                   className="project-image"
                 />
                 <div className="project-overlay">
-                  <span className="project-link-text">Посетить сайт</span>
+                  <span className="project-link-text">{t('projects.visit_site')}</span>
                 </div>
               </a>
             </div>
