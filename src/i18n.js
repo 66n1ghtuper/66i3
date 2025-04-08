@@ -35,7 +35,7 @@ i18n
             visit_site: "Visit Site",
           },
           order_form: {
-            greeting: "Hello! Let's create the perfect website.",
+            greeting: "Let's get started on creating your website!",
             ask_name: "What should I call you?",
             greet_user: "Nice to meet you, {{name}}!",
             ask_telegram: "What is your Telegram username? (without @)",
@@ -90,7 +90,7 @@ i18n
             visit_site: "Посетить сайт",
           },
           order_form: {
-            greeting: "Привет! Давай создадим идеальный сайт.",
+            greeting: "Давайте приступим к созданию вашего сайта.",
             ask_name: "Как я могу к вам обращаться?",
             greet_user: "Приятно познакомиться, {{name}}!",
             ask_telegram: "Какой ваш Telegram username? (без @)",
